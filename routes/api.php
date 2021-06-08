@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\customersController;
+use App\Http\Controllers\cAddresController;
+use App\Http\Controllers\ordersController;
+use App\Http\Controllers\ownerController;
+use App\Http\Controllers\productControler;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +23,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('App\Model\Customers', 'App\Http\Controllers\customersController');
+Route::resource('customers', customersController::class);
+
+
+Route::resource('customerAddress', cAddresController::class);
+
+Route::resource('orders', ordersController::class);
+
+Route::resource('product', productControler::class);
+
+Route::resource('owner', ownerController::class);

@@ -5,17 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customers extends Model
+class product extends Model
 {
-    protected $fillable = ['cname', 'phone', 'email'];
+
+    protected $fillable = ['pname', 'price'];
+
     // use HasFactory;
-    public function customerAddress()
-    {
-        return $this->hasMany('App\Models\customerAddress', 'customers_id');
-    }
+
     public function Orders()
     {
         return $this->hasMany('App\Models\Orders');
     }
-
+    public function productOwner()
+    {
+        return $this->belongsTo('App\Models\productOwner', 'owner_id');
+    }
 }

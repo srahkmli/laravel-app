@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\customerAddress;
 use App\Models\Customers;
 
-class customersController extends Controller
+use Illuminate\Http\Request;
+
+class cAddresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,10 @@ class customersController extends Controller
      */
     public function index()
     {
-        $customers = Customers::all();
 
-        return response($customers, 200);
+        $customer_addresses = customerAddress::all();
+
+        return response($customer_addresses, 200);
     }
 
     /**
@@ -37,16 +40,16 @@ class customersController extends Controller
      */
     public function store(Request $request)
     {
+        $customer_id = Customers::find(1);
         $data = $request->validate(
             [
-                'cname' => 'required',
-                'phone' => 'required',
-                'email' => 'required',
+                'city' => 'required',
+                'street' => 'required',
             ]
         );
-
-        $customers = Customers::create($data);
-        return response($customers, 200);
+        $Address =   $customer_id->customerAddress()->create($data);
+        //  $Address = customerAddress::create($data);
+        return response($Address, 200);
     }
 
     /**

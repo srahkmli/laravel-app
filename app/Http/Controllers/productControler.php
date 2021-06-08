@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Customers;
+use App\Models\product;
+use App\Models\productOwner;
 
-class customersController extends Controller
+use Illuminate\Http\Request;
+
+class productControler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,9 @@ class customersController extends Controller
      */
     public function index()
     {
-        $customers = Customers::all();
+        $product = product::all();
 
-        return response($customers, 200);
+        return response($product, 200);
     }
 
     /**
@@ -37,16 +39,16 @@ class customersController extends Controller
      */
     public function store(Request $request)
     {
+        $ower_id = productOwner::find(1);
         $data = $request->validate(
             [
-                'cname' => 'required',
-                'phone' => 'required',
-                'email' => 'required',
+                'pname' => 'required',
+                'price' => 'required',
+
             ]
         );
-
-        $customers = Customers::create($data);
-        return response($customers, 200);
+        $product =  $ower_id->product()->create($data);
+        return response($product, 200);
     }
 
     /**

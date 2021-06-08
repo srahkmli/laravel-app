@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Customers;
 
-class customersController extends Controller
+use App\Models\productOwner;
+use Illuminate\Http\Request;
+
+
+class ownerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,10 @@ class customersController extends Controller
      */
     public function index()
     {
-        $customers = Customers::all();
 
-        return response($customers, 200);
+        $owner = productOwner::all();
+
+        return response($owner, 200);
     }
 
     /**
@@ -39,14 +42,13 @@ class customersController extends Controller
     {
         $data = $request->validate(
             [
-                'cname' => 'required',
+                'owner_name' => 'required',
                 'phone' => 'required',
                 'email' => 'required',
             ]
         );
-
-        $customers = Customers::create($data);
-        return response($customers, 200);
+        $owner = productOwner::create($data);
+        return response($owner, 200);
     }
 
     /**
