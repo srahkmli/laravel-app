@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Orders extends Model
 {
     //
-    protected $fillable = ['date', 'total_price', 'qty', 'customers_id'];
+    protected $fillable = ['date', 'total_price', 'qty'];
     // use HasFactory;
-
     public function Customers()
     {
         return $this->belongsTo('App\Models\Customers', 'customers_id');

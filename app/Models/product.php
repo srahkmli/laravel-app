@@ -14,7 +14,7 @@ class product extends Model
 
     public function Orders()
     {
-        return $this->hasMany('App\Models\Orders');
+        return $this->hasMany('App\Models\Orders', 'product_id');
     }
     public function productOwner()
     {

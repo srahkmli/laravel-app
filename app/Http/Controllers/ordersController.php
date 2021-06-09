@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use App\Models\Customers;
 use App\Models\product;
 use App\Models\Orders;
+use App\Models\Something;
 use Illuminate\Http\Request;
 
 class ordersController extends Controller
@@ -39,8 +41,6 @@ class ordersController extends Controller
      */
     public function store(Request $request)
     {
-        $product_id = product::find(1);
-        $customer_id = Customers::find(1);
         $data = $request->validate(
             [
                 'date' => 'required',
@@ -48,8 +48,15 @@ class ordersController extends Controller
                 'qty' => 'required',
             ]
         );
-        $orders = $product_id->Orders()->create($data);
-        $orders = $customer_id->Orders()->update();
+
+        $orders   =  Orders::create($data);
+
+        $event = $orders;
+        $event->product_id = 1;     // supposing there's a user with id 1
+        $event->customers_id = 1;   // supposing there's a user with id 2
+
+        $event->save();
+
         return response($orders, 200);
     }
 
