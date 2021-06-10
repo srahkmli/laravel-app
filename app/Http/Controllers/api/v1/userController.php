@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
-use Illuminate\Validation\Rule;
-use App\Models\Customers;
-use App\Models\product;
-use App\Models\Orders;
-use App\Models\Something;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class ordersController extends Controller
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +15,7 @@ class ordersController extends Controller
      */
     public function index()
     {
-        $orders = Orders::all();
-
-        return response($orders, 200);
+        return User::all();
     }
 
     /**
@@ -39,28 +34,9 @@ class ordersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id1, $id2)
+    public function store(Request $request)
     {
-        $data = $request->validate(
-            [
-                'date' => 'required',
-                'total_price' => 'required',
-                'qty' => 'required',
-            ]
-        );
-
-        $orders   =  Orders::create($data);
-
-        $event = $orders;
-        $event->product_id = $id1;
-        $event->customers_id = $id2;
-
-       // $event->product_id = 1;     // supposing there's a user with id 1
-      //  $event->customers_id = 1;   // supposing there's a user with id 2
-
-        $event->save();
-
-        return response($orders, 200);
+        //
     }
 
     /**
@@ -71,8 +47,7 @@ class ordersController extends Controller
      */
     public function show($id)
     {
-        $order = Orders::find($id);
-        return response()->json($order);
+        //
     }
 
     /**

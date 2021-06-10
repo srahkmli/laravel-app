@@ -57,7 +57,8 @@ class customersController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customers::find($id);
+        return response()->json($customer);
     }
 
     /**
@@ -80,7 +81,15 @@ class customersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $customer = Customers::findOrFail($id);
+        $customer->cname = $request->input('cname');
+        $customer->phone = $request->input('phone');
+        $customer->email = $request->input('email');
+
+        $customer->save();
+
+        return response($customer, 200);
     }
 
     /**
@@ -91,6 +100,9 @@ class customersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customers::findOrFail($id);
+        $customer->delete();
+
+        return response()->json($customer);
     }
 }
